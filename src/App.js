@@ -62,7 +62,10 @@ class App extends Component {
       turn: 'X',
       gameOver: false,
       board: Array(9).fill(''),
-      totalMoves: 0,
+     totalMoves: 0,
+      xScore: 0,
+      oScore: 0,
+      dScore: 0
     }
 
   }
@@ -77,8 +80,56 @@ class App extends Component {
     if(this.state.board[event.target.dataset.square] == '') {
         this.state.board[event.target.dataset.square] = this.state.turn;
 
-        event.target.innerText = this.state.turn;
-
+      switch (event.target.dataset.square) {
+        case "0": 
+        this.setState({
+          s0: this.state.turn
+        });
+        break;
+        case "1": 
+        this.setState({
+          s1: this.state.turn
+        });
+        break;
+        case "2": 
+        this.setState({
+          s2: this.state.turn
+        });
+        break;
+        case "3": 
+        this.setState({
+          s3: this.state.turn
+        });
+        break;
+        case "4": 
+        this.setState({
+          s4: this.state.turn
+        });
+        break;
+        case "5": 
+        this.setState({
+          s5: this.state.turn
+        });
+        break;
+        case "6": 
+        this.setState({
+          s6: this.state.turn
+        });
+        break;
+        case "7": 
+        this.setState({
+          s7: this.state.turn
+        });
+        break;
+        case "8": 
+        this.setState({
+          s8: this.state.turn
+        });
+        break;
+        default:
+          console.log('error, unknown');
+        break;
+      };
         
         this.state.turn = this.state.turn == 'X' ? 'O' : 'X',
 
@@ -94,7 +145,7 @@ class App extends Component {
       this.setState({
         winner: 'X',
         winnerLine: 'X wins',
-        xScore: +1,
+        xScore: this.state.xScore +1
       });
 
     }else if(result == 'O') {
@@ -103,7 +154,7 @@ class App extends Component {
         gameOver:true,
         winner: 'O',
         winnerLine: 'O wins',
-        oScore: +1
+        oScore: this.state.oScore +1
       });
 
     }else if(result =='draw') {
@@ -112,7 +163,7 @@ class App extends Component {
         gameOver:true,
         winner: 'draw',
         winnerLine: 'Match Draw',
-        dScore: +1
+        dScore: this.state.dScore +1
       })
     }
   }
@@ -125,8 +176,17 @@ class App extends Component {
           gameOver: false,
           board: Array(9).fill(''),
           totalMoves: 0,
+          winnerLine: '',
+          s0: "",
+          s1: "",
+          s2: "",
+          s3: "",
+          s4: "",
+          s5: "",
+          s6: "",
+          s7: "",
+          s8: ""
         })
-        Square.innerText = '';
     };
 
   checkWinner() {
@@ -156,15 +216,15 @@ class App extends Component {
             
             {/* create the board and click event to place a move inside a square */}
             <Board onClick={(e)=>this.clicked(e)}>
-                <Square data-square="0"></Square>
-                <Square data-square="1"></Square>
-                <Square data-square="2"></Square>
-                <Square data-square="3"></Square>
-                <Square data-square="4"></Square>
-                <Square data-square="5"></Square>
-                <Square data-square="6"></Square>
-                <Square data-square="7"></Square>
-                <Square data-square="8"></Square>
+                <Square data-square="0">{this.state.s0}</Square>
+                <Square data-square="1">{this.state.s1}</Square>
+                <Square data-square="2">{this.state.s2}</Square>
+                <Square data-square="3">{this.state.s3}</Square>
+                <Square data-square="4">{this.state.s4}</Square>
+                <Square data-square="5">{this.state.s5}</Square>
+                <Square data-square="6">{this.state.s6}</Square>
+                <Square data-square="7">{this.state.s7}</Square>
+                <Square data-square="8">{this.state.s8}</Square>
             </Board>
 
             <Status>{this.state.winnerLine}</Status>
